@@ -15,7 +15,7 @@ public class MathController {
     public Double sum( @PathVariable(value = "numberOne") String numberOne,
                        @PathVariable(value = "numberTwo") String numberTwo) throws Exception {
         if (!isNumeric(numberOne) || (!isNumeric(numberTwo))) {
-            throw new Exception();
+            throw new UnsupportedOperationException("Please set a numeric value!");
         }
         return convertToDouble(numberOne) + convertToDouble(numberTwo);
     }
