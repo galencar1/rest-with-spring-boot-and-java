@@ -3,6 +3,8 @@ package br.com.gabrielalencar.restwithspringbootandjava.services;
 import br.com.gabrielalencar.restwithspringbootandjava.model.Person;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
@@ -30,5 +32,23 @@ public class PersonServices {
         person.setGender("Male");
         return person;
     }
+    private Person mockPerson(int i) {
+        logger.info("Finding All people!");
+        Person person = new Person();
+        person.setId(counter.incrementAndGet());
+        person.setFirstName("Person Name " + i);
+        person.setLastName("Last Name " + i);
+        person.setAddress("Adress " + i);
+        person.setGender("Male");
+        return person;
+    }
 
+    public List<Person> findAll() {
+        List<Person> persons = new ArrayList<>();
+        for (int i=0; i<8; i++ ){
+            Person person = mockPerson(i);
+            persons.add(person);
+        }
+        return persons;
+    }
 }
