@@ -43,6 +43,19 @@ public class PersonServices {
         return person;
     }
 
+    public Person create (Person person){
+        logger.info("Creating one person");
+        return person;
+    }
+    public Person update (Person person){
+        logger.info("Updating one person");
+        return person;
+    }
+
+    public void delete (String id){
+        logger.info("Delete one person");
+    }
+
     public List<Person> findAll() {
         List<Person> persons = new ArrayList<>();
         for (int i=0; i<8; i++ ){
