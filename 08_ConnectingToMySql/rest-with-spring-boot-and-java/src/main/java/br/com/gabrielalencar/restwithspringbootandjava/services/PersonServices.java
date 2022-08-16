@@ -1,6 +1,9 @@
 package br.com.gabrielalencar.restwithspringbootandjava.services;
 
+import br.com.gabrielalencar.restwithspringbootandjava.exceptions.ResourceNotFoundException;
 import br.com.gabrielalencar.restwithspringbootandjava.model.Person;
+import br.com.gabrielalencar.restwithspringbootandjava.repository.PersonRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,10 +16,13 @@ import java.util.logging.Logger;
 // em tempo de RUNTIME
 @Service
 public class PersonServices {
-    private final AtomicLong counter = new AtomicLong(); // Simula o ID
+/************************************************************************************************************/
     private Logger logger = Logger.getLogger(PersonServices.class.getName());
-
-    public Person findById(String id){
+/************************************************************************************************************/
+    @Autowired
+    PersonRepository repository;
+/************************************************************************************************************/
+    public Person findById(Long id){
         //Mocks - Estruturas de código temporárias, para dar sustento ao mesmo, até
         //que outros componentes estejam prontos. A medida que o projeto vai evoluindo
         //eles vão sendo removidos.
@@ -24,44 +30,41 @@ public class PersonServices {
 
         //Mock.
         logger.info("Finding one person!");
-        Person person = new Person();
-        person.setId(counter.incrementAndGet());
-        person.setFirstName("Zaraki");
-        person.setLastName("Kenpachi");
-        person.setAddress("Gotei 13");
-        person.setGender("Male");
-        return person;
-    }
-    private Person mockPerson(int i) {
-        logger.info("Finding All people!");
-        Person person = new Person();
-        person.setId(counter.incrementAndGet());
-        person.setFirstName("Person Name " + i);
-        person.setLastName("Last Name " + i);
-        person.setAddress("Adress " + i);
-        person.setGender("Male");
-        return person;
-    }
 
+        return repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("No Records found for this ID!"));
+    }
+/************************************************************************************************************/
+    public List<Person> findAll() {
+    logger.info("Finding All people!");
+    return repository.findAll();
+    }
+/************************************************************************************************************/
     public Person create (Person person){
         logger.info("Creating one person");
-        return person;
+        return repository.save(person);
     }
+/************************************************************************************************************/
     public Person update (Person person){
         logger.info("Updating one person");
-        return person;
-    }
+        Person entity = repository.findById(person.getId())
+                .orElseThrow( () -> new ResourceNotFoundException("No Records found for this ID!"));
 
-    public void delete (String id){
+        entity.setFirstName(person.getFirstName());
+        entity.setLastName(person.getLastName());
+        entity.setAddress(person.getAddress());
+        entity.setGender(person.getGender());
+        return repository.save(person);
+    }
+/************************************************************************************************************/
+    public void delete (Long id){
         logger.info("Delete one person");
-    }
 
-    public List<Person> findAll() {
-        List<Person> persons = new ArrayList<>();
-        for (int i=0; i<8; i++ ){
-            Person person = mockPerson(i);
-            persons.add(person);
-        }
-        return persons;
+        Person entity = repository.findById(id)
+                .orElseThrow( () -> new ResourceNotFoundException("No Records found for this ID!"));
+
+        repository.delete(entity);
     }
+/************************************************************************************************************/
+/************************************************************************************************************/
 }

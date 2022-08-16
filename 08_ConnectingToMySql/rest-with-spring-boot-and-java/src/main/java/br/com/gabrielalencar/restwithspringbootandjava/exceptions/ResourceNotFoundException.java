@@ -3,6 +3,9 @@ package br.com.gabrielalencar.restwithspringbootandjava.exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(HttpStatus.BAD_REQUEST)
-public class UnsupportedMathOperationsException extends RuntimeException{
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public class ResourceNotFoundException extends RuntimeException{
+    public ResourceNotFoundException(String s) {
+        super(s);
+    }
 }
