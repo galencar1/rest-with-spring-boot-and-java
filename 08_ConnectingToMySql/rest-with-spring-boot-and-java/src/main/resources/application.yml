@@ -1,14 +1,13 @@
 spring:
   datasource:
-    dbcp2:
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/rest_with_spring_java?useTimezone=true&serverTimezone=UTC
-      username: curso_rest
-      password: curso_rest
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/rest_with_spring_java?useTimezone=true&serverTimezone=UTC
+    username: curso_rest
+    password: curso_rest
   jpa:
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
-      dialect: org.hibernate.dialect.MySql8Dialect
+        dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: false

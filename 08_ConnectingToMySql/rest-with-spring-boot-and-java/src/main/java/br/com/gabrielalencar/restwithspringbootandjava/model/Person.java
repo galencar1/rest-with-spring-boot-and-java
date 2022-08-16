@@ -1,13 +1,22 @@
 package br.com.gabrielalencar.restwithspringbootandjava.model;
 
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.util.Objects;
-
+@Entity // Diz pro hibernate que essa classe é uma tabela do banco de dados.
+@Table(name = "person") // Diz para hibernate qual nome da tabela
 public class Person implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)// Diz ao hibernate que o ID é auto-incremental.
     private Long id;
+    @Column(name = "first_name", nullable = false, length = 80) // Diz para o hibernate que esse parâmetro é uma coluna do banco de dados.
     private String firstName;
+    @Column(name = "last_name", nullable = false, length = 80)
     private String lastName;
+    @Column(nullable = false, length = 100)
     private String address;
+    @Column(nullable = false, length = 6)
     private String gender;
 
     public Person() {}
