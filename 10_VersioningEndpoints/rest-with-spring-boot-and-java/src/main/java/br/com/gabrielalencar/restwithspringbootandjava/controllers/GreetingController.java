@@ -1,0 +1,23 @@
+package br.com.gabrielalencar.restwithspringbootandjava.controllers;
+
+import br.com.gabrielalencar.restwithspringbootandjava.Greeting;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.concurrent.atomic.AtomicLong;
+
+// O @Rest Controller Agreda as anotações @controller e @ResponseBody
+//Rest Controller retorna um objeto e os dados do objeto são escritos diretamente na resposta HTTP
+//como JSON ou como XML
+
+@RestController
+public class GreetingController {
+    private static final String template = "Hello, %s!";
+    private final AtomicLong counter = new AtomicLong();
+
+    @RequestMapping("/greeting")
+    public Greeting greeting(@RequestParam( value = "name", defaultValue = "World") String name ){
+        return new Greeting(counter.incrementAndGet(), String.format(template, name));
+    }
+}
