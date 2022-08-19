@@ -1,6 +1,7 @@
 package br.com.gabrielalencar.restwithspringbootandjava.controllers;
 
 import br.com.gabrielalencar.restwithspringbootandjava.data.vo.v1.PersonVO;
+import br.com.gabrielalencar.restwithspringbootandjava.data.vo.v2.PersonVOV2;
 import br.com.gabrielalencar.restwithspringbootandjava.services.PersonServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -45,5 +46,13 @@ public class PersonController {
     public ResponseEntity<?> delete(@PathVariable (value = "id") Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
+    }
+/***********************************************************************************************************/
+// V2 - Adicionado Campo birthday Date
+    @PostMapping(value = "/v2",
+                    consumes = MediaType.APPLICATION_JSON_VALUE,
+                    produces = MediaType.APPLICATION_JSON_VALUE)
+    public PersonVOV2 createV2(@RequestBody PersonVOV2 personVOV2) {
+        return service.createV2(personVOV2);
     }
 }
