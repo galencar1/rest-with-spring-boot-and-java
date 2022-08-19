@@ -1,7 +1,6 @@
 package br.com.gabrielalencar.restwithspringbootandjava.services;
 
 import br.com.gabrielalencar.restwithspringbootandjava.data.vo.v1.PersonVO;
-import br.com.gabrielalencar.restwithspringbootandjava.data.vo.v2.PersonVOV2;
 import br.com.gabrielalencar.restwithspringbootandjava.exceptions.ResourceNotFoundException;
 import br.com.gabrielalencar.restwithspringbootandjava.mapper.DozerMapper;
 import br.com.gabrielalencar.restwithspringbootandjava.model.Person;
@@ -74,15 +73,6 @@ public class PersonServices {
                 .orElseThrow( () -> new ResourceNotFoundException("No Records found for this ID!"));
 
         repository.delete(entity);
-    }
-
-    public PersonVOV2 createV2(PersonVOV2 personVOV2) {
-        logger.info("Creating one person with V2");
-
-        var entity = DozerMapper.parseObject(personVOV2, Person.class);
-        var vo = DozerMapper.parseObject(repository.save(entity), PersonVOV2.class);
-
-        return vo;
     }
 /************************************************************************************************************/
 /************************************************************************************************************/
