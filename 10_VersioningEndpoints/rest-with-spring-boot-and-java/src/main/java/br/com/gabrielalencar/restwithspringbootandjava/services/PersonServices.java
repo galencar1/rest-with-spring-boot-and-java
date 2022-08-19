@@ -1,8 +1,10 @@
 package br.com.gabrielalencar.restwithspringbootandjava.services;
 
 import br.com.gabrielalencar.restwithspringbootandjava.data.vo.v1.PersonVO;
+import br.com.gabrielalencar.restwithspringbootandjava.data.vo.v2.PersonVOV2;
 import br.com.gabrielalencar.restwithspringbootandjava.exceptions.ResourceNotFoundException;
 import br.com.gabrielalencar.restwithspringbootandjava.mapper.DozerMapper;
+import br.com.gabrielalencar.restwithspringbootandjava.mapper.custom.PersonMapper;
 import br.com.gabrielalencar.restwithspringbootandjava.model.Person;
 import br.com.gabrielalencar.restwithspringbootandjava.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ public class PersonServices {
 /************************************************************************************************************/
     @Autowired
     PersonRepository repository;
+    @Autowired
+    PersonMapper mapper;
 /************************************************************************************************************/
     public PersonVO findById(Long id){
 
@@ -75,5 +79,16 @@ public class PersonServices {
         repository.delete(entity);
     }
 /************************************************************************************************************/
+//  V2
+/************************************************************************************************************/
+    public PersonVOV2 createV2(PersonVOV2 personVOV2) {
+        logger.info("Creating one person with V2");
+
+        var entity = mapper.convertVoToEntity(personVOV2);
+        var vo = mapper.convertEntityToVo(repository.save(entity));
+
+        return vo;
+    }
+
 /************************************************************************************************************/
 }
