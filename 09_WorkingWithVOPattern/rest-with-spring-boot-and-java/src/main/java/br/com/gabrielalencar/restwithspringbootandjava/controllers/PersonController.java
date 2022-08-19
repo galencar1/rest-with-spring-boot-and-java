@@ -25,7 +25,7 @@ public class PersonController {
     }
 /***********************************************************************************************************/
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List PersonVO findAll() {
+    public List <PersonVO> findAll() {
         return service.findAll();
     }
 /***********************************************************************************************************/
